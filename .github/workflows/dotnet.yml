@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     env:
       WORKDIR: ./src/HelloWorld
       CONFIG: Release
@@ -17,8 +18,10 @@ jobs:
     defaults:
       run:
         working-directory: ${{env.WORKDIR}}
-
     steps:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: actions/checkout@v3
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
